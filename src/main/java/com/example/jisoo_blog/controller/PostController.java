@@ -5,7 +5,6 @@ import com.example.jisoo_blog.dto.PostResponseDto;
 import com.example.jisoo_blog.entity.Post;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.RuntimeErrorException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -56,6 +55,14 @@ public class PostController {
         }
 
         return responseList;
+    }
+
+    @GetMapping( "/posts/{id}" )
+    public PostResponseDto getPost( @PathVariable Long id ) {
+        if ( !postList.containsKey( id ) ) {
+            throw new IllegalArgumentException( "해당 글이 존재하지 않습니다." );
+        }
+        return new PostResponseDto( postList.get( id ) );
     }
 
     // http://localhost:8080/JisooBlog/memos?id=1&password=비밀번호1

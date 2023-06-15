@@ -5,11 +5,12 @@ import com.example.jisoo_blog.dto.PostResponseDto;
 import com.example.jisoo_blog.entity.Post;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.RuntimeErrorException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
-@RequestMapping("/JisooBlog")
+@RequestMapping( "/JisooBlog" )
 public class PostController {
 
     private final Map< Long, Post > postList = new HashMap<>();
@@ -51,5 +52,27 @@ public class PostController {
         }
 
         return responseList;
+    }
+
+    // http://localhost:8080/JisooBlog/memos?id=1&password=1234
+    @PutMapping( "/posts" )
+    public void updatePost( @RequestParam Long id, @RequestParam String password, @RequestBody PostRequestDto requestDto ) {
+        // 해당 글 DB에 존재하는 지 확인
+        if ( !postList.containsKey( id ) ) {
+            throw new IllegalArgumentException( "해당 글이 존재하지 않습니다." );
+        }
+
+        // password 확인하기
+        if ( !( postList.get( id ).getPassword().equals( password ) ) ) {
+            // 일단 무슨 예외를 던져야 할지 몰라 같은 예외로 던짐.. 추후 수정 필요
+            throw new IllegalArgumentException( "password가 일치하지 않습니다." );
+        }
+
+        // 해당 글 가져오기
+        Post post = postList.get( id );
+
+        // 글 수정
+        post.update( requestDto );
+
     }
 }

@@ -41,9 +41,16 @@ public class PostController {
 
     @GetMapping( "/posts" )
     public List< PostResponseDto > getPosts() {
-        // Map To List
-        List< PostResponseDto > responseList = postList.values().stream()
-                .map( PostResponseDto::new ).toList();
+        // Map To List(id 역순으로 넣기)
+        List< PostResponseDto > responseList = new ArrayList<>();
+        // id값 중 가장 큰 값 구하기
+        Long maxId = Collections.max( postList.keySet() );
+        // 큰 값부터 작은 값까지 역순으로 list에 add
+        for ( long i = maxId; i >= 1; i-- ) {
+            if ( postList.get( i ) != null ) {
+                responseList.add( new PostResponseDto( postList.get( i ) ) );
+            }
+        }
 
         return responseList;
     }

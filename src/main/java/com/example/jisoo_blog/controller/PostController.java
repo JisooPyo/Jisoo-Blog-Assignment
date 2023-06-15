@@ -58,10 +58,10 @@ public class PostController {
         return responseList;
     }
 
-    // http://localhost:8080/JisooBlog/memos?id=1&password=1234
+    // http://localhost:8080/JisooBlog/memos?id=1&password=비밀번호1
     @PutMapping( "/posts" )
     public PostResponseDto updatePost( @RequestParam Long id, @RequestParam String password, @RequestBody PostRequestDto requestDto ) {
-        // 해당 글 DB에 존재하는 지 확인
+        // 해당 글이 DB에 존재하는 지 확인
         if ( !postList.containsKey( id ) ) {
             throw new IllegalArgumentException( "해당 글이 존재하지 않습니다." );
         }
@@ -81,5 +81,22 @@ public class PostController {
 
     }
 
+    // http://localhost:8080/JisooBlog/memos?id=1&password=비밀번호1
+    @DeleteMapping( "/posts" )
+    public String deletePost( @RequestParam Long id, @RequestParam String password ) {
+        // 해당 글이 DB에 존재하는 지 확인
+        if ( !postList.containsKey( id ) ) {
+            throw new IllegalArgumentException( "해당 글이 존재하지 않습니다." );
+        }
 
+        // password 확인하기
+        if ( !( postList.get( id ).getPassword().equals( password ) ) ) {
+            // 예외 수정 필요
+            throw new IllegalArgumentException( "password가 일치하지 않습니다." );
+        }
+
+        // 해당 글 삭제
+        postList.remove( id );
+        return "글이 성공적으로 삭제되었습니다.";
+    }
 }

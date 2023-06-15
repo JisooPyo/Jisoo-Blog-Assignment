@@ -14,7 +14,8 @@ public class Post {
     private String username;
     private String password;
     private String contents;
-    private String date;
+    private String createdAt;
+    private String modifiedAt;
 
     public Post( PostRequestDto requestDto ) {
         this.posttitle = requestDto.getPosttitle();

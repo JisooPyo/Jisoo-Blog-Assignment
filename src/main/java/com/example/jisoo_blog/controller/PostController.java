@@ -14,6 +14,7 @@ public class PostController {
 
     private final Map< Long, Post > postList = new HashMap<>();
 
+    // 게시글 작성
     @PostMapping( "/posts" )
     public PostResponseDto createPost( @RequestBody PostRequestDto requestDto ) {
         // RequestDto -> Entity
@@ -27,7 +28,8 @@ public class PostController {
         SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd 'at' HH:mm:ss z" );
         Date now = new Date( System.currentTimeMillis() );
         String date = sdf.format( now );
-        post.setDate( date );
+        post.setCreatedAt( date );
+        post.setModifiedAt( date );
 
         // DB 저장
         postList.put( post.getId(), post );
@@ -37,6 +39,8 @@ public class PostController {
         return postResponseDto;
     }
 
+
+    // 전체 게시글 목록 조회
     @GetMapping( "/posts" )
     public List< PostResponseDto > getPosts() {
         // 일단 무슨 예외를 던져야 할지 몰라 같은 예외로 던짐.. 추후 수정 필요
@@ -57,7 +61,9 @@ public class PostController {
         return responseList;
     }
 
-    @GetMapping( "/posts/{id}" )
+
+    // 선택한 게시글 조회
+    @GetMapping( "/post/{id}" )
     public PostResponseDto getPost( @PathVariable Long id ) {
         if ( !postList.containsKey( id ) ) {
             throw new IllegalArgumentException( "해당 글이 존재하지 않습니다." );
@@ -65,8 +71,10 @@ public class PostController {
         return new PostResponseDto( postList.get( id ) );
     }
 
-    // http://localhost:8080/JisooBlog/memos?id=1&password=비밀번호1
-    @PutMapping( "/posts" )
+
+    // 선택한 게시글 수정
+    // http://localhost:8080/JisooBlog/post/update?id=1&password=비밀번호1
+    @PutMapping( "/post/update" )
     public PostResponseDto updatePost( @RequestParam Long id, @RequestParam String password, @RequestBody PostRequestDto requestDto ) {
         // 해당 글이 DB에 존재하는 지 확인
         if ( !postList.containsKey( id ) ) {
@@ -84,12 +92,20 @@ public class PostController {
 
         // 글 수정
         post.update( requestDto );
-        return new PostResponseDto( post );
 
+        // Set Date
+        SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd 'at' HH:mm:ss z" );
+        Date now = new Date( System.currentTimeMillis() );
+        String date = sdf.format( now );
+        post.setModifiedAt( date );
+
+        return new PostResponseDto( post );
     }
 
-    // http://localhost:8080/JisooBlog/memos?id=1&password=비밀번호1
-    @DeleteMapping( "/posts" )
+
+    // 선택한 게시글 삭제
+    // http://localhost:8080/JisooBlog/post/delete?id=1&password=비밀번호1
+    @DeleteMapping( "/post/delete" )
     public String deletePost( @RequestParam Long id, @RequestParam String password ) {
         // 해당 글이 DB에 존재하는 지 확인
         if ( !postList.containsKey( id ) ) {

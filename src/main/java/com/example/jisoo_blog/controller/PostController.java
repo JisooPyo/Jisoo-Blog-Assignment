@@ -40,6 +40,10 @@ public class PostController {
 
     @GetMapping( "/posts" )
     public List< PostResponseDto > getPosts() {
+        // 일단 무슨 예외를 던져야 할지 몰라 같은 예외로 던짐.. 추후 수정 필요
+        if ( postList.size() == 0 ) {
+            throw new IllegalArgumentException( "조회할 글이 없습니다." );
+        }
         // Map To List(id 역순으로 넣기)
         List< PostResponseDto > responseList = new ArrayList<>();
         // id값 중 가장 큰 값 구하기

@@ -2,13 +2,10 @@ package com.example.jisoo_blog.controller;
 
 import com.example.jisoo_blog.dto.PostRequestDto;
 import com.example.jisoo_blog.dto.PostResponseDto;
-import com.example.jisoo_blog.entity.Post;
 import com.example.jisoo_blog.service.PostService;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping( "/JisooBlog" )

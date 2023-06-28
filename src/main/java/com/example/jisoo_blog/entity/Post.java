@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table
+@Table(name="posts")
 @NoArgsConstructor
 public class Post extends Timestamped {
     @Id

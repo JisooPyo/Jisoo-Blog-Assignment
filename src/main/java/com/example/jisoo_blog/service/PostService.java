@@ -25,8 +25,7 @@ public class PostService {
         Post savePost = postRepository.save(post);
 
         // Entity -> ResponseDto
-        PostResponseDto postResponseDto = new PostResponseDto(savePost);
-        return postResponseDto;
+        return new PostResponseDto(savePost);
     }
 
     public List<PostResponseDto> getPosts() {
@@ -40,21 +39,15 @@ public class PostService {
     }
 
     @Transactional
-    public Long updatePost(Long id, PostRequestDto requestDto) {
+    public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
         Post post = findPost(id);
         post.update(requestDto);
-        return id;
+        return new PostResponseDto(post);
     }
 
-    public Long deletePost(Long id, String password) {
+    public Long deletePost(Long id) {
         // 해당 글이 DB에 존재하는 지 확인
         Post post = findPost(id);
-
-        // password 확인하기
-        if (!(post.getPassword().equals(password))) {
-            // 예외 수정 필요
-            throw new IllegalArgumentException("password가 일치하지 않습니다.");
-        }
 
         // 해당 글 삭제
         postRepository.delete(post);

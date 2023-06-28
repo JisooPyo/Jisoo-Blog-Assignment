@@ -16,20 +16,18 @@ public class Post extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String posttitle, username, password;
+    private String posttitle, username;
     @Column
     private String contents;
 
     public Post(PostRequestDto requestDto) {
         this.posttitle = requestDto.getPosttitle();
         this.username = requestDto.getUsername();
-        this.password = requestDto.getPassword();
         this.contents = requestDto.getContents();
     }
 
     public void update(PostRequestDto requestDto) {
         this.posttitle = requestDto.getPosttitle();
-        this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
     }
 }

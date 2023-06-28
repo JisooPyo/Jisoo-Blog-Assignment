@@ -20,17 +20,19 @@ public class UserController {
     }
 
     @PostMapping("/user/signup")
-    public void signup(@RequestBody SignupRequestDto requestDto){
+    public String signup(@RequestBody SignupRequestDto requestDto){
         userService.signup(requestDto);
+        return "회원가입 완료!";
     }
 
     @PostMapping("/user/login")
-    public void login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res){
+    public String login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res){
         try {
             userService.login(requestDto,res);
             System.out.println("로그인 성공");
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
+        return "로그인 완료!";
     }
 }

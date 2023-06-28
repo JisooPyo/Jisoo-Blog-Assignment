@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -30,6 +31,16 @@ public class UserService {
     public void signup(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
         String password = passwordEncoder.encode(requestDto.getPassword());
+
+        // username 정규식 확인
+        if (!Pattern.matches("^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{4,10}$",username)) {
+            throw new IllegalArgumentException("username은 최소 4자 이상, 10자 이하이며 알파벳 소문자, 숫자로 구성되어야 합니다.");
+        }
+
+        // password 정규식 확인
+        if (!Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,15}$",requestDto.getPassword())) {
+            throw new IllegalArgumentException(("password는 최소 8자 이상, 15자 이하이며 알파벳 대소문자, 숫자로 구성되어야 합니다."));
+        }
 
         // 회원 중복 확인
         Optional<User> checkUsername = userRepository.findByUsername(username);

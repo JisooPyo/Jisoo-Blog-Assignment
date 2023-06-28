@@ -6,6 +6,7 @@ import com.example.jisoo_blog.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -19,19 +20,17 @@ public class UserController {
     }
 
     @PostMapping("/user/signup")
-    public String signup(SignupRequestDto requestDto){
+    public void signup(@RequestBody SignupRequestDto requestDto){
         userService.signup(requestDto);
-
-        return "회원가입 완료";
     }
 
     @PostMapping("/user/login")
-    public String login(LoginRequestDto requestDto, HttpServletResponse res){
+    public void login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res){
         try {
             userService.login(requestDto,res);
+            System.out.println("로그인 성공");
         } catch (Exception e){
-            return "로그인 실패";
+            System.out.println(e.getMessage());
         }
-        return "로그인 성공";
     }
 }

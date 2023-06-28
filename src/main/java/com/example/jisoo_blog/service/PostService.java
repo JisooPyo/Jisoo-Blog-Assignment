@@ -30,7 +30,7 @@ public class PostService {
     }
 
     public List<PostResponseDto> getPosts() {
-        return postRepository.findAllByOrderByModifiedAtDesc()
+        return postRepository.findAllByOrderByCreatedAtDesc()
                 .stream().map(PostResponseDto::new).toList();
     }
 

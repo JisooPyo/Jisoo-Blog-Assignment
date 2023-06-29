@@ -48,7 +48,7 @@ public class PostController {
     }
 
     // 선택한 게시글 삭제
-    // http://localhost:8080/JisooBlog/post?id=1&password=비밀번호1
+    // http://localhost:8080/JisooBlog/post?id=1
     @DeleteMapping("/post")
     public Long deletePost(Long id) {
         return postService.deletePost(id);

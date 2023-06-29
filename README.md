@@ -56,7 +56,7 @@
 
 ## ERD(Entity Relationship Diagram)
 
-<img src="https://github.com/JisooPyo/Spring-Blog-Assignment/assets/130378232/0cc8d607-c91b-43ff-9839-6ad64c435207"></img>
+<img src="https://github.com/JisooPyo/Spring-Blog-Assignment/assets/130378232/c898551d-184d-43f3-a92b-c72cd5c25120"></img>
 
 ## API
 

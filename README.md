@@ -2,21 +2,13 @@
 
 ## 기술 스택
 
----
-
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white">
-<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
-<img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"><img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
 <br>
 
-<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white">
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white">
 
 ## 주의사항
-
----
 
 <details>
 <summary>주의 사항 보기</summary>
@@ -64,21 +56,13 @@
 
 ## ERD(Entity Relationship Diagram)
 
----
-
 <img src="https://github.com/JisooPyo/Spring-Blog-Assignment/assets/130378232/0cc8d607-c91b-43ff-9839-6ad64c435207"></img>
-
 
 ## API
 
----
-
 https://web.postman.co/workspace/My-Workspace~90e1a74b-8fa8-4987-8956-ac15dd3937a3/documentation/27928837-3bed5e63-58e1-4e73-82e6-61eef239af54
 
-
 ## Trouble Shooting
-
----
 
 ### 1. createdAt, modifiedAt 변수 값이 저장이 되지 않음
 

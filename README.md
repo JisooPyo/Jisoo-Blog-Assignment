@@ -74,3 +74,44 @@
 ---
 
 https://web.postman.co/workspace/My-Workspace~90e1a74b-8fa8-4987-8956-ac15dd3937a3/documentation/27928837-3bed5e63-58e1-4e73-82e6-61eef239af54
+
+
+## Trouble Shooting
+
+---
+
+### 1. createdAt, modifiedAt 변수 값이 저장이 되지 않음
+
+###### DB에 column은 만들어졌는데 변수 값이 저장이 안되고 null로 저장이 되었다.
+
+-->
+
+application에 @EnableJpaAuditing annotation을 하지 않아서 생긴 문제였다.
+JPA Auditing 기능을 사용하려면 꼭 스프링부트에 annotation을 달아서 알려주어야 한다.
+
+### 2. application을 실행시켰더니 다음 오류가 나고 아무것도 먹히지 않음.
+
+###### This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+-->
+
+SpringBoot Security 문제로, 처음 시작할 때 만들어진 key를 이용해서 security configuration을 update 시켜주어야 한다.
+간단하게 security를 잠깐 끄는 옵션을 찾아서 해결.
+Application에 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class}) 추가
+
+### 3. POST 요청 보냈을 때의 오류
+
+###### java.lang.IllegalArgumentException: rawPassword cannot be null
+
+-->
+
+Controller에서 SignupRequestDto에 @RequestBody annotation 달아서 해결
+
+### 4. POST 요청 -> DB에 회원정보 등록은 되었으나 ERROR 발생
+
+###### 2023-06-29T01:42:20.033+09:00 ERROR 11688 --- [nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.thymeleaf.exceptions.TemplateInputException: Error resolving template [회원가입 완료], template might not exist or might not be accessible by any of the configured Template Resolvers] with root cause
+
+-->
+
+Controller 메서드에서 String을 반환하는 메서드에 "로그인 성공" 같은 걸 반환하게 하였더니, thymeleaf의 기능으로 그와 같은 이름의 html파일을 못 찾아서 오류가 남. 이 프로젝트에서는 뷰를 반환하지 않으므로 thymeleaf 의존성 주석처리해서 해결.
+

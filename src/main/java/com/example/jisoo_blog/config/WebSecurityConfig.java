@@ -70,7 +70,7 @@ public class WebSecurityConfig {
 				authorizeHttpRequests
 						.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
 						.requestMatchers("/JisooBlog/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
-						.requestMatchers("/JisooBlog").permitAll() // 전체 게시글 목록 조회, 선택된 포스트 조회
+						.requestMatchers("/JisooBlog/view/**").permitAll() // 전체 게시글 목록 조회, 선택된 포스트 조회
 						.anyRequest().authenticated() // 그 외 모든 요청 인증처리
 		);
 

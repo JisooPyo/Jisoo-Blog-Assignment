@@ -7,27 +7,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @Table(name="posts")
 @NoArgsConstructor
 public class Post extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
-    private String posttitle, username;
+    private String title;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
     @Column
     private String contents;
 
     public Post(PostRequestDto requestDto) {
-        this.posttitle = requestDto.getPosttitle();
-        this.username = requestDto.getUsername();
+        this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
     }
 
     public void update(PostRequestDto requestDto) {
-        this.posttitle = requestDto.getPosttitle();
+//        this.title = requestDto.getPosttitle();
         this.contents = requestDto.getContents();
     }
+
 }

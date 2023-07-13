@@ -1,22 +1,17 @@
 package com.example.jisoo_blog.service;
 
-import com.example.jisoo_blog.dto.ApiResponseDto;
 import com.example.jisoo_blog.dto.PostRequestDto;
 import com.example.jisoo_blog.dto.PostResponseDto;
-import com.example.jisoo_blog.dto.PostsResponseDto;
 import com.example.jisoo_blog.entity.Post;
 import com.example.jisoo_blog.entity.User;
 import com.example.jisoo_blog.entity.UserRoleEnum;
 import com.example.jisoo_blog.repository.PostRepository;
 import com.example.jisoo_blog.repository.UserRepository;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.stream.Collectors;
 

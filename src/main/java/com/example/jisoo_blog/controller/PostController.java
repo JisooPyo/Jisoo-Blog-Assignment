@@ -3,7 +3,6 @@ package com.example.jisoo_blog.controller;
 import com.example.jisoo_blog.dto.ApiResponseDto;
 import com.example.jisoo_blog.dto.PostRequestDto;
 import com.example.jisoo_blog.dto.PostResponseDto;
-import com.example.jisoo_blog.dto.PostsResponseDto;
 import com.example.jisoo_blog.security.UserDetailsImpl;
 import com.example.jisoo_blog.service.PostService;
 import lombok.RequiredArgsConstructor;

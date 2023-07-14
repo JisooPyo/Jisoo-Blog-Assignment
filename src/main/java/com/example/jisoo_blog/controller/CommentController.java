@@ -7,13 +7,14 @@ import com.example.jisoo_blog.security.UserDetailsImpl;
 import com.example.jisoo_blog.service.CommentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.RejectedExecutionException;
 
 @RestController
@@ -50,12 +51,12 @@ public class CommentController {
 														@RequestBody CommentRequestDto requestDto,
 														@AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
-			CommentResponseDto result = commentService.updateComment(postId,id,requestDto,userDetails.getUser());
+			CommentResponseDto result = commentService.updateComment(postId, id, requestDto, userDetails.getUser());
 			return ResponseEntity.ok().body(result);
-		} catch(EntityNotFoundException notFoundException){
+		} catch (EntityNotFoundException notFoundException) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new ApiResponseDto(notFoundException.getMessage(),HttpStatus.NOT_FOUND.value()));
-		} catch(RejectedExecutionException rejectedExecutionException){
+					.body(new ApiResponseDto(notFoundException.getMessage(), HttpStatus.NOT_FOUND.value()));
+		} catch (RejectedExecutionException rejectedExecutionException) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(new ApiResponseDto(rejectedExecutionException.getMessage(), HttpStatus.BAD_REQUEST.value()));
 		}
@@ -67,14 +68,57 @@ public class CommentController {
 														@PathVariable Long id,
 														@AuthenticationPrincipal UserDetailsImpl userDetails) {
 		try {
-			commentService.deleteComment(postId,id,userDetails.getUser());
+			commentService.deleteComment(postId, id, userDetails.getUser());
 			return ResponseEntity.ok().body(new ApiResponseDto("해당 댓글의 삭제를 완료했습니다.", HttpStatus.OK.value()));
-		} catch(EntityNotFoundException notFoundException){
+		} catch (EntityNotFoundException notFoundException) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
 					.body(new ApiResponseDto(notFoundException.getMessage(), HttpStatus.NOT_FOUND.value()));
-		} catch ( RejectedExecutionException rejectedExecutionException){
+		} catch (RejectedExecutionException rejectedExecutionException) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(new ApiResponseDto(rejectedExecutionException.getMessage(), HttpStatus.BAD_REQUEST.value()));
+		}
+	}
+
+	///////////////////////////////////////////////////////////////////
+	// 댓글 좋아요 기능
+	// 댓글 좋아요 추가
+	@PostMapping("/post/{postId}/comment/{id}/like")
+	public ResponseEntity<ApiResponseDto> addCommentLike(@PathVariable Long postId,
+														 @PathVariable Long id,
+														 @AuthenticationPrincipal UserDetailsImpl userDetails) {
+		System.out.println("댓글 좋아요 추가?");
+		try {
+			CommentResponseDto responseDto = commentService.addCommentLike(postId, id, userDetails.getUser());
+			return ResponseEntity.ok().body(responseDto);
+		} catch (EntityNotFoundException enfe) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ApiResponseDto(enfe.getMessage(), HttpStatus.NOT_FOUND.value()));
+		} catch (RejectedExecutionException ree) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new ApiResponseDto(ree.getMessage(), HttpStatus.BAD_REQUEST.value()));
+		} catch (DataIntegrityViolationException dive) {
+			return ResponseEntity.status(HttpStatus.CONFLICT)
+					.body(new ApiResponseDto(dive.getMessage(), HttpStatus.CONFLICT.value()));
+		}
+	}
+
+	// 댓글 좋아요 삭제
+	@DeleteMapping("/post/{postId}/comment/{id}/like")
+	public ResponseEntity<ApiResponseDto> deleteCommentLike(@PathVariable Long postId,
+															@PathVariable Long id,
+															@AuthenticationPrincipal UserDetailsImpl userDetails) {
+		try {
+			CommentResponseDto responseDto = commentService.deleteCommentLike(postId, id, userDetails.getUser());
+			return ResponseEntity.ok().body(responseDto);
+		} catch (EntityNotFoundException enfe) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ApiResponseDto(enfe.getMessage(), HttpStatus.NOT_FOUND.value()));
+		} catch (RejectedExecutionException ree) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new ApiResponseDto(ree.getMessage(), HttpStatus.BAD_REQUEST.value()));
+		} catch (DataIntegrityViolationException dive) {
+			return ResponseEntity.status(HttpStatus.CONFLICT)
+					.body(new ApiResponseDto(dive.getMessage(), HttpStatus.CONFLICT.value()));
 		}
 	}
 }

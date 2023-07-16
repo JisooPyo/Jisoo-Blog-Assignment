@@ -125,9 +125,13 @@
 ### PR에 기록.
 
 PR번호
+
 [#5 security 수정에 따른 Post 관련 클래스 수정](https://github.com/JisooPyo/Spring-Blog-Assignment/pull/5)
+
 [#7 Comment 기능 추가](https://github.com/JisooPyo/Spring-Blog-Assignment/pull/7)
+
 [#9 게시글 좋아요 기능 추가](https://github.com/JisooPyo/Spring-Blog-Assignment/pull/9)
+
 [#11 댓글 좋아요 기능 추가](https://github.com/JisooPyo/Spring-Blog-Assignment/pull/11)
 
 ---
